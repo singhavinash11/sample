@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: sample
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  port: 8443
+  servlet:
+    context-path: /sample
+  ssl:
+#    enabled: true # Default value is true if other server.ssl properties are defined
+#    enabled-protocols: "TLSv1.3" # Default TLS version in spring boot 3
+    key-store: classpath:keystore/mykeystore.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+    key-alias: mysslkey
+    key-password: changeit
+#  http2:
+#    enabled: true
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+
+custom:
+  http-client:
+    timeouts:
+      default:
+        connect-timeout: 3000       # in milliseconds
+        read-timeout: 5000          # in milliseconds
+      todos:
+        connect-timeout: 3000
+        read-timeout: 6000
+      posts:
+        connect-timeout: 3000
+        read-timeout: 8000
+
+#logging:
+#  level:
+#    root: DEBUG

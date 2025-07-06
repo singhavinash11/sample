@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "d6c2635e-cb88-48ec-a54a-7aa63a646241",
+		"name": "Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29416192"
+	},
+	"item": [
+		{
+			"name": "savePostViaEndpoint",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"12\",\r\n    \"title\": \"title 1\",\r\n    \"body\": \"body description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/sample/posts",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"sample",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "savePostExternalApi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"11\",\r\n    \"title\": \"title 1\",\r\n    \"body\": \"body description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
