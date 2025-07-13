@@ -19,6 +19,8 @@ server:
     key-password: changeit
 #  http2:
 #    enabled: true
+#  tomcat:
+#    keep-alive-timeout: 2000
 
 #management:
 #  endpoints:
@@ -41,4 +43,4 @@ custom:
 
 #logging:
 #  level:
-#    root: DEBUG
+#    root: TRACE

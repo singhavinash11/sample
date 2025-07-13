@@ -10,7 +10,13 @@ import org.springframework.web.client.RestClient;
 
 import java.util.Map;
 
-import static org.singhav.sample.constant.RestConstants.*;
+import static org.singhav.sample.constant.RestConstants.BASE_URL;
+import static org.singhav.sample.constant.RestConstants.DEFAULT;
+import static org.singhav.sample.constant.RestConstants.HTTPS;
+import static org.singhav.sample.constant.RestConstants.POSTS;
+import static org.singhav.sample.constant.RestConstants.POSTS_ID_URI;
+import static org.singhav.sample.constant.RestConstants.POSTS_URI;
+import static org.singhav.sample.constant.RestConstants.TODOS;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Slf4j
@@ -65,10 +71,10 @@ public class HelloService {
                 .toEntity(String.class);
     }
 
-    public ResponseEntity<PostResponse> savePost(PostRequest postRequest) {
+    public PostResponse savePost(PostRequest postRequest) {
         RestClient restClient = getRestClient(POSTS);
         log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        return restClient.post()
+        ResponseEntity<PostResponse> savedPostEntity = restClient.post()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(BASE_URL)
                         .path(POSTS_URI)
@@ -77,6 +83,7 @@ public class HelloService {
                 .body(postRequest)
                 .retrieve()
                 .toEntity(PostResponse.class);
+        return savedPostEntity.getBody();
     }
 
     public ResponseEntity<PostResponse> updatePost(Integer id, PostRequest postRequest) {

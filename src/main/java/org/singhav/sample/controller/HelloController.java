@@ -8,8 +8,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.singhav.sample.model.PostRequest;
 import org.singhav.sample.model.PostResponse;
 import org.singhav.sample.service.HelloService;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import static org.singhav.sample.constant.RestConstants.POSTS_ID_URI;
 import static org.singhav.sample.constant.RestConstants.POSTS_URI;
@@ -40,9 +48,9 @@ public class HelloController {
 
     @PostMapping(value = POSTS_URI, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PostResponse> savePost(@Valid @RequestBody PostRequest postRequest) throws JsonProcessingException {
-        ResponseEntity<PostResponse> savedPostEntity = helloService.savePost(postRequest);
-        log.info("Response entity :: {}", objectMapper.writeValueAsString(savedPostEntity));
-        return savedPostEntity;
+        PostResponse savedPost = helloService.savePost(postRequest);
+        log.info("Response :: {}", objectMapper.writeValueAsString(savedPost));
+        return new ResponseEntity<>(savedPost, HttpStatusCode.valueOf(201));
     }
 
     @PutMapping(POSTS_ID_URI)
