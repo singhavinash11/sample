@@ -21,4 +21,3 @@ public class HttpClientProperties {
         private int readTimeout;
     }
 }
-

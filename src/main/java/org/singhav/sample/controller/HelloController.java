@@ -68,4 +68,3 @@ public class HelloController {
         return helloService.deletePost(id);
     }
 }
-
