@@ -1,14 +1,11 @@
 package org.singhav.sample.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.singhav.sample.model.PostRequest;
-import org.singhav.sample.model.PostResponse;
+import org.singhav.sample.model.typicode.PostRequest;
+import org.singhav.sample.model.typicode.PostResponse;
 import org.singhav.sample.service.HelloService;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +20,13 @@ import static org.singhav.sample.constant.RestConstants.POSTS_ID_URI;
 import static org.singhav.sample.constant.RestConstants.POSTS_URI;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class HelloController {
-    private final ObjectMapper objectMapper;
     private final HelloService helloService;
 
     @GetMapping(value = {"/todos", "/todos/{id}"}, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getTodos(@PathVariable(required = false) Integer id) {
-        log.info("Calling 'GET /todos' with id :: {} using {}", id, Thread.currentThread());
         return helloService.getTodos(id);
     }
 
@@ -47,10 +41,9 @@ public class HelloController {
     }
 
     @PostMapping(value = POSTS_URI, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<PostResponse> savePost(@Valid @RequestBody PostRequest postRequest) throws JsonProcessingException {
+    public ResponseEntity<PostResponse> savePost(@Valid @RequestBody PostRequest postRequest) {
         PostResponse savedPost = helloService.savePost(postRequest);
-        log.info("Response :: {}", objectMapper.writeValueAsString(savedPost));
-        return new ResponseEntity<>(savedPost, HttpStatusCode.valueOf(201));
+        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
 
     @PutMapping(POSTS_ID_URI)

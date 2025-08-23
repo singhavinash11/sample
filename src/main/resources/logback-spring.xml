@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+<!--    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>-->
+<!--    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>-->
+<!--    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>-->
+
+    <!-- Define properties -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+    <property name="LOG_FILE" value="logs/${APPLICATION_NAME}.log"/>
+    <property name="LOG_ARCHIVE" value="logs/archive/${APPLICATION_NAME}-%d{yyyy-MM-dd}.%i.log"/>
+
+    <!-- Properties from Spring Boot -->
+    <springProperty scope="context" name="APPLICATION_NAME" source="spring.application.name"/>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Rolling File Appender -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ARCHIVE}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Async Appender wrapping Console -->
+    <appender name="ASYNC_CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="CONSOLE"/>
+        <queueSize>1024</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!-- Async Appender wrapping File -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE"/>
+        <queueSize>1024</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="ASYNC_CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </root>
+
+    <!-- Optional: Logger for specific packages -->
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.singhav.sample" level="DEBUG"/>
+
+</configuration>

@@ -16,7 +16,7 @@ public class HttpClientProperties {
 
     @Getter
     @Setter
-    public static class TimeoutSettings {
+    static class TimeoutSettings {
         private int connectTimeout;
         private int readTimeout;
     }
