@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.singhav.sample.util.CommonUtils.DATE_FORMAT;
+import static org.singhav.sample.util.FundRatingUtils.DATE_FORMAT;
 
 @Service
 @RequiredArgsConstructor

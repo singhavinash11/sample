@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static org.singhav.sample.constant.RestConstants.APPLICATION_VND_RATING_V2_JSON;
 import static org.singhav.sample.constant.RestConstants.APPLICATION_VND_RATING_V2_OCTET_STREAM;
-import static org.singhav.sample.util.CommonUtils.buildHeaders;
+import static org.singhav.sample.util.FundRatingUtils.buildHeaders;
 import static org.springframework.http.MediaType.APPLICATION_OCTET_STREAM_VALUE;
 
 @RestController

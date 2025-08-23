@@ -22,7 +22,7 @@ import static org.springframework.util.StringUtils.hasText;
 
 @Slf4j
 @NoArgsConstructor(access = PRIVATE)
-public final class CommonUtils {
+public final class FundRatingUtils {
     public static final String DATE_FORMAT = "MMM dd, yyyy";
     public static final DateTimeFormatter DATE_FORMATTER_FILE = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss");
 
@@ -58,11 +58,11 @@ public final class CommonUtils {
     private static Map.Entry<String, String> getParamMapEntry(RatingRequest ratingRequest, RecordComponent rc) {
         try {
             String value = (String) rc.getAccessor().invoke(ratingRequest);
-            boolean isValuePresent = hasText(value);
-            if (!isValuePresent) {
+            if (!hasText(value)) {
                 log.debug("Skipping empty field: {}", rc.getName());
+                return null;
             }
-            return isValuePresent ? Map.entry(rc.getName(), value) : null;
+            return Map.entry(rc.getName(), value);
         } catch (IllegalAccessException | InvocationTargetException ex) {
             throw new IllegalAccessOrInvocationTargetException("Exception while mapping 'RatingRequest' to Map", ex);
         }

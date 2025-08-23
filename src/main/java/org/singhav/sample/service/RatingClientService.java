@@ -18,7 +18,7 @@ import static org.singhav.sample.constant.RestConstants.CRISIL_BASE_URL;
 import static org.singhav.sample.constant.RestConstants.CRISIL_RATING_URI;
 import static org.singhav.sample.constant.RestConstants.DEFAULT;
 import static org.singhav.sample.constant.RestConstants.HTTPS;
-import static org.singhav.sample.util.CommonUtils.createParamMap;
+import static org.singhav.sample.util.FundRatingUtils.createParamMap;
 
 @Slf4j
 @Service
@@ -33,6 +33,7 @@ public class RatingClientService {
     }
 
     @LogExecutionTime
+    @Cacheable(cacheNames = "ratingCache", keyGenerator = "ratingRequestKeyGenerator")
     public RatingResponse fetchMutualFundRating(RatingRequest ratingRequest) {
         Map<String, String> paramMap = createParamMap(ratingRequest);
         return getRatingResponse(paramMap);
