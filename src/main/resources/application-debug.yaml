@@ -1,0 +1,13 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+#  config: ./sample-configuration/logback-spring.xml
+  level:
+    org:
+      singhav:
+        sample:
+          '*': debug

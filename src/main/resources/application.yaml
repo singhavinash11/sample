@@ -4,8 +4,8 @@ spring:
   threads:
     virtual:
       enabled: true
-#  cache:
-#    cache-names: "ratingCache"
+  cache:
+    cache-names: "ratingCache"
 
 server:
   port: 8443
@@ -18,20 +18,6 @@ server:
     key-store-type: PKCS12
     key-alias: mysslkey
     key-password: changeit
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
-logging:
-  #config: ./sample-configuration/logback-spring.xml
-  level:
-    org:
-      singhav:
-        sample:
-          '*': debug
 
 custom:
   http-client:
