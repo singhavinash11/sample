@@ -7,62 +7,401 @@
 	},
 	"item": [
 		{
-			"name": "savePostViaEndpoint",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userId\": \"12\",\r\n    \"title\": \"title 1\",\r\n    \"body\": \"body description\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Post_Todos_Comment",
+			"item": [
+				{
+					"name": "savePostViaEndpoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"12\",\r\n    \"title\": \"title 1\",\r\n    \"body\": \"body description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8443/sample/posts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"sample",
+								"posts"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://localhost:8443/sample/posts",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"sample",
-						"posts"
-					]
+				{
+					"name": "savePostExternalApi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"11\",\r\n    \"title\": \"title 1\",\r\n    \"body\": \"body description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "processDischarge",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patientId\": \"45786\",\r\n    \"patientName\": \"Amol\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8443/sample/discharge/api/process",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"sample",
+								"discharge",
+								"api",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostById",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/sample/posts/45",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"sample",
+								"posts",
+								"45"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api-docs",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/sample/v3/api-docs",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"sample",
+								"v3",
+								"api-docs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTodosById",
+					"protocolProfileBehavior": {
+						"strictSSL": false,
+						"protocolVersion": "http1"
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/sample/todos/50",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"sample",
+								"todos",
+								"50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTodosByIdExtApi",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos/25",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos",
+								"25"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "savePostExternalApi",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userId\": \"11\",\r\n    \"title\": \"title 1\",\r\n    \"body\": \"body description\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Mutual_Fund",
+			"item": [
+				{
+					"name": "getCrisilMfRating",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://intelligence.crisil.com/content/intelligence/en/homepage/what-we-do/research/investment-research-product/mutual-fund-research/mutual-fund-ranking/_jcr_content/content_par/columncontrol_128464/col-100-1-wp/box/col-100-1/tabs_copy/1/mf_rating.mfRating.json?categoryName=Multi Cap Fund&invType=Equity&planName=Direct Plan",
+							"protocol": "https",
+							"host": [
+								"intelligence",
+								"crisil",
+								"com"
+							],
+							"path": [
+								"content",
+								"intelligence",
+								"en",
+								"homepage",
+								"what-we-do",
+								"research",
+								"investment-research-product",
+								"mutual-fund-research",
+								"mutual-fund-ranking",
+								"_jcr_content",
+								"content_par",
+								"columncontrol_128464",
+								"col-100-1-wp",
+								"box",
+								"col-100-1",
+								"tabs_copy",
+								"1",
+								"mf_rating.mfRating.json"
+							],
+							"query": [
+								{
+									"key": "categoryName",
+									"value": "Multi Cap Fund"
+								},
+								{
+									"key": "displayName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "fundName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "invType",
+									"value": "Equity"
+								},
+								{
+									"key": "start",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "planName",
+									"value": "Direct Plan"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://jsonplaceholder.typicode.com/posts",
-					"protocol": "https",
-					"host": [
-						"jsonplaceholder",
-						"typicode",
-						"com"
-					],
-					"path": [
-						"posts"
-					]
+				{
+					"name": "getRatingViaApi",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.singhav.rating.v2+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:8443/sample/ratings?categoryName=Mid Cap Fund&invType=Equity&limit=50&planName=Direct Plan",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"sample",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "categoryName",
+									"value": "Mid Cap Fund"
+								},
+								{
+									"key": "displayName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "fundName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "invType",
+									"value": "Equity"
+								},
+								{
+									"key": "start",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								},
+								{
+									"key": "planName",
+									"value": "Direct Plan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exportRatingViaApi",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.singhav.rating.v2+octet-stream",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:8443/sample/export-ratings?categoryName=Small Cap Fund&invType=Equity&limit=50&planName=Direct Plan",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"sample",
+								"export-ratings"
+							],
+							"query": [
+								{
+									"key": "categoryName",
+									"value": "Small Cap Fund"
+								},
+								{
+									"key": "displayName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "fundName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "invType",
+									"value": "Equity"
+								},
+								{
+									"key": "start",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								},
+								{
+									"key": "planName",
+									"value": "Direct Plan"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

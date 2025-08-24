@@ -10,14 +10,14 @@ import java.util.Map;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "custom.http-client")
-public class HttpClientProperties {
-    private Map<String, TimeoutSettings> timeouts;
+@ConfigurationProperties
+public class BackendProperties {
+    private Map<String, ApiDetail> backends;
 
     @Getter
     @Setter
-    static class TimeoutSettings {
-        private int connectTimeout;
-        private int readTimeout;
+    public static class ApiDetail {
+        private String host;
+        private String uri;
     }
 }

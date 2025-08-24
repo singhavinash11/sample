@@ -1,38 +1,29 @@
 package org.singhav.sample.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.singhav.sample.model.PostRequest;
-import org.singhav.sample.model.PostResponse;
+import org.singhav.sample.model.typicode.PostRequest;
+import org.singhav.sample.model.typicode.PostResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
-import java.util.Map;
-
-import static org.singhav.sample.constant.RestConstants.BASE_URL;
-import static org.singhav.sample.constant.RestConstants.DEFAULT;
 import static org.singhav.sample.constant.RestConstants.HTTPS;
 import static org.singhav.sample.constant.RestConstants.POSTS;
 import static org.singhav.sample.constant.RestConstants.POSTS_ID_URI;
 import static org.singhav.sample.constant.RestConstants.POSTS_URI;
 import static org.singhav.sample.constant.RestConstants.TODOS;
+import static org.singhav.sample.constant.RestConstants.TYPICODE_BASE_URL;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class HelloService {
-    private static final String LOGGER_PREFIX_REST_CLIENT = "RestClient -> {}";
-
-    private final Map<String, RestClient> restClients;
+    private final RestDetailsProviderService restDetailsProviderService;
 
     public ResponseEntity<String> getTodos(Integer id) {
-        RestClient restClient = getRestClient(TODOS);
-        log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        return restClient.get()
+        return restDetailsProviderService.getRestClient(TODOS)
+                .get()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
-                        .host(BASE_URL)
+                        .host(TYPICODE_BASE_URL)
                         .path("/todos")
                         .pathSegment("{id}")
                         .build(id))
@@ -41,16 +32,10 @@ public class HelloService {
     }
 
     public ResponseEntity<String> getPosts(Integer id) {
-        if (id != null) {
-            log.info("Calling 'GET /posts' with id :: {} using {}", id, Thread.currentThread());
-        } else {
-            log.info("Calling 'GET /posts' using {}", Thread.currentThread());
-        }
-        RestClient restClient = getRestClient(POSTS);
-        log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        return restClient.get()
+        return restDetailsProviderService.getRestClient(POSTS)
+                .get()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
-                        .host(BASE_URL)
+                        .host(TYPICODE_BASE_URL)
                         .path(POSTS_ID_URI)
                         .build(id))
                 .retrieve()
@@ -58,12 +43,10 @@ public class HelloService {
     }
 
     public ResponseEntity<String> getCommentsLinkedWithPost(Integer id) {
-        log.info("Calling 'GET comments associated with posts' with id :: {} using {}", id, Thread.currentThread());
-        RestClient restClient = getRestClient(POSTS);
-        log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        return restClient.get()
+        return restDetailsProviderService.getRestClient(POSTS)
+                .get()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
-                        .host(BASE_URL)
+                        .host(TYPICODE_BASE_URL)
                         .path(POSTS_ID_URI)
                         .pathSegment("comments")
                         .build(id))
@@ -72,11 +55,10 @@ public class HelloService {
     }
 
     public PostResponse savePost(PostRequest postRequest) {
-        RestClient restClient = getRestClient(POSTS);
-        log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        ResponseEntity<PostResponse> savedPostEntity = restClient.post()
+        ResponseEntity<PostResponse> savedPostEntity = restDetailsProviderService.getRestClient(POSTS)
+                .post()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
-                        .host(BASE_URL)
+                        .host(TYPICODE_BASE_URL)
                         .path(POSTS_URI)
                         .build())
                 .contentType(APPLICATION_JSON)
@@ -87,11 +69,10 @@ public class HelloService {
     }
 
     public ResponseEntity<PostResponse> updatePost(Integer id, PostRequest postRequest) {
-        RestClient restClient = getRestClient(POSTS);
-        log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        return restClient.put()
+        return restDetailsProviderService.getRestClient(POSTS)
+                .put()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
-                        .host(BASE_URL)
+                        .host(TYPICODE_BASE_URL)
                         .path(POSTS_ID_URI)
                         .build(id))
                 .contentType(APPLICATION_JSON)
@@ -101,11 +82,10 @@ public class HelloService {
     }
 
     public ResponseEntity<PostResponse> patchPost(Integer id, PostRequest postRequest) {
-        RestClient restClient = getRestClient(POSTS);
-        log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        return restClient.patch()
+        return restDetailsProviderService.getRestClient(POSTS)
+                .patch()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
-                        .host(BASE_URL)
+                        .host(TYPICODE_BASE_URL)
                         .path(POSTS_ID_URI)
                         .build(id))
                 .contentType(APPLICATION_JSON)
@@ -115,18 +95,13 @@ public class HelloService {
     }
 
     public ResponseEntity<PostResponse> deletePost(Integer id) {
-        RestClient restClient = getRestClient(POSTS);
-        log.info(LOGGER_PREFIX_REST_CLIENT, restClient);
-        return restClient.delete()
+        return restDetailsProviderService.getRestClient(POSTS)
+                .delete()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
-                        .host(BASE_URL)
+                        .host(TYPICODE_BASE_URL)
                         .path(POSTS_ID_URI)
                         .build(id))
                 .retrieve()
                 .toEntity(PostResponse.class);
-    }
-
-    private RestClient getRestClient(String clientName) {
-        return restClients.getOrDefault(clientName, restClients.get(DEFAULT));
     }
 }

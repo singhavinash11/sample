@@ -4,29 +4,20 @@ spring:
   threads:
     virtual:
       enabled: true
+  cache:
+    cache-names: "ratingCache"
 
 server:
   port: 8443
   servlet:
     context-path: /sample
   ssl:
-#    enabled: true # Default value is true if other server.ssl properties are defined
-#    enabled-protocols: "TLSv1.3" # Default TLS version in spring boot 3
     key-store: classpath:keystore/mykeystore.p12
+    #key-store: ./sample-configuration/keystore/mykeystore.p12
     key-store-password: changeit
     key-store-type: PKCS12
     key-alias: mysslkey
     key-password: changeit
-#  http2:
-#    enabled: true
-#  tomcat:
-#    keep-alive-timeout: 2000
-
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
 
 custom:
   http-client:
@@ -41,6 +32,7 @@ custom:
         connect-timeout: 3000
         read-timeout: 8000
 
-#logging:
-#  level:
-#    root: TRACE
+backends:
+  crisil-ranking:
+    host: intelligence.crisil.com
+    uri: /content/intelligence/en/homepage/what-we-do/research/investment-research-product/mutual-fund-research/mutual-fund-ranking/_jcr_content/content_par/columncontrol_128464/col-100-1-wp/box/col-100-1/tabs_copy/1/mf_rating.mfRating.json
