@@ -24,7 +24,7 @@ public class CacheConfig {
     }
 
     @Bean
-    public KeyGenerator ratingKeyGenerator() {
+    public KeyGenerator ratingMapKeyGenerator() {
         return (target, method, params) -> {
             Map<String, String> paramMap = castToMap(params[0]);
             return getSortedKey(paramMap);
@@ -58,9 +58,8 @@ public class CacheConfig {
     private static Map<String, String> castToMapFromRatingRequest(Object obj) {
         if (obj instanceof RatingRequest ratingRequest) {
             return createParamMap(ratingRequest);
-        } else {
-            throw new IllegalArgumentException("Provided object is not an instance of RatingRequest");
         }
+        throw new IllegalArgumentException("Provided object is not an instance of RatingRequest");
     }
 
     private static String getSortedKey(Map<String, String> paramMap) {

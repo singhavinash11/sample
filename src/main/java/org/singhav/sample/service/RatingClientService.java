@@ -3,6 +3,7 @@ package org.singhav.sample.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.singhav.sample.aspect.LogExecutionTime;
+import org.singhav.sample.config.rest.BackendProperties.ApiDetail;
 import org.singhav.sample.model.rating.RatingRequest;
 import org.singhav.sample.model.rating.RatingResponse;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,8 +15,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.singhav.sample.constant.RestConstants.CRISIL_BASE_URL;
-import static org.singhav.sample.constant.RestConstants.CRISIL_RATING_URI;
 import static org.singhav.sample.constant.RestConstants.DEFAULT;
 import static org.singhav.sample.constant.RestConstants.HTTPS;
 import static org.singhav.sample.util.FundRatingUtils.createParamMap;
@@ -24,10 +23,10 @@ import static org.singhav.sample.util.FundRatingUtils.createParamMap;
 @Service
 @RequiredArgsConstructor
 public class RatingClientService {
-    private final RestClientProviderService restClientProviderService;
+    private final RestDetailsProviderService restDetailsProviderService;
 
     @LogExecutionTime
-    @Cacheable(cacheNames = "ratingCache", keyGenerator = "ratingKeyGenerator")
+    @Cacheable(cacheNames = "ratingCache", keyGenerator = "ratingMapKeyGenerator")
     public RatingResponse fetchMutualFundRating(Map<String, String> params) {
         return getRatingResponse(params);
     }
@@ -40,18 +39,21 @@ public class RatingClientService {
     }
 
     private RatingResponse getRatingResponse(Map<String, String> paramMap) {
-        ResponseEntity<RatingResponse> ratingResponseEntity = restClientProviderService.getRestClient(DEFAULT)
+        ResponseEntity<RatingResponse> ratingResponseEntity = restDetailsProviderService.getRestClient(DEFAULT)
                 .get()
-                .uri(uriBuilder -> buildUri(uriBuilder, paramMap))
+                .uri(uriBuilder -> {
+                    var apiDetail = restDetailsProviderService.getApiDetail("crisil-ranking");
+                    return buildUri(uriBuilder, paramMap, apiDetail);
+                })
                 .retrieve()
                 .toEntity(RatingResponse.class);
         return ratingResponseEntity.getBody();
     }
 
-    private static URI buildUri(UriBuilder uriBuilder, Map<String, String> queryParams) {
+    private static URI buildUri(UriBuilder uriBuilder, Map<String, String> queryParams, ApiDetail apiDetail) {
         UriBuilder builder = uriBuilder.scheme(HTTPS)
-                .host(CRISIL_BASE_URL)
-                .path(CRISIL_RATING_URI);
+                .host(apiDetail.getHost())
+                .path(apiDetail.getUri());
         queryParams.forEach((key, value) -> builder.queryParamIfPresent(key, Optional.ofNullable(value)));
         return builder.build();
     }

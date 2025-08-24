@@ -17,10 +17,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Service
 @RequiredArgsConstructor
 public class HelloService {
-    private final RestClientProviderService restClientProviderService;
+    private final RestDetailsProviderService restDetailsProviderService;
 
     public ResponseEntity<String> getTodos(Integer id) {
-        return restClientProviderService.getRestClient(TODOS)
+        return restDetailsProviderService.getRestClient(TODOS)
                 .get()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(TYPICODE_BASE_URL)
@@ -32,7 +32,7 @@ public class HelloService {
     }
 
     public ResponseEntity<String> getPosts(Integer id) {
-        return restClientProviderService.getRestClient(POSTS)
+        return restDetailsProviderService.getRestClient(POSTS)
                 .get()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(TYPICODE_BASE_URL)
@@ -43,7 +43,7 @@ public class HelloService {
     }
 
     public ResponseEntity<String> getCommentsLinkedWithPost(Integer id) {
-        return restClientProviderService.getRestClient(POSTS)
+        return restDetailsProviderService.getRestClient(POSTS)
                 .get()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(TYPICODE_BASE_URL)
@@ -55,7 +55,7 @@ public class HelloService {
     }
 
     public PostResponse savePost(PostRequest postRequest) {
-        ResponseEntity<PostResponse> savedPostEntity = restClientProviderService.getRestClient(POSTS)
+        ResponseEntity<PostResponse> savedPostEntity = restDetailsProviderService.getRestClient(POSTS)
                 .post()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(TYPICODE_BASE_URL)
@@ -69,7 +69,7 @@ public class HelloService {
     }
 
     public ResponseEntity<PostResponse> updatePost(Integer id, PostRequest postRequest) {
-        return restClientProviderService.getRestClient(POSTS)
+        return restDetailsProviderService.getRestClient(POSTS)
                 .put()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(TYPICODE_BASE_URL)
@@ -82,7 +82,7 @@ public class HelloService {
     }
 
     public ResponseEntity<PostResponse> patchPost(Integer id, PostRequest postRequest) {
-        return restClientProviderService.getRestClient(POSTS)
+        return restDetailsProviderService.getRestClient(POSTS)
                 .patch()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(TYPICODE_BASE_URL)
@@ -95,7 +95,7 @@ public class HelloService {
     }
 
     public ResponseEntity<PostResponse> deletePost(Integer id) {
-        return restClientProviderService.getRestClient(POSTS)
+        return restDetailsProviderService.getRestClient(POSTS)
                 .delete()
                 .uri(uriBuilder -> uriBuilder.scheme(HTTPS)
                         .host(TYPICODE_BASE_URL)

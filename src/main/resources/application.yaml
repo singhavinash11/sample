@@ -47,6 +47,6 @@ custom:
         read-timeout: 8000
 
 backends:
-  crisil:
+  crisil-ranking:
     host: intelligence.crisil.com
     uri: /content/intelligence/en/homepage/what-we-do/research/investment-research-product/mutual-fund-research/mutual-fund-ranking/_jcr_content/content_par/columncontrol_128464/col-100-1-wp/box/col-100-1/tabs_copy/1/mf_rating.mfRating.json
