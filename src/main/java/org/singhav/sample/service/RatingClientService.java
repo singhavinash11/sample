@@ -15,8 +15,8 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.singhav.sample.constant.RestConstants.DEFAULT;
 import static org.singhav.sample.constant.RestConstants.HTTPS;
+import static org.singhav.sample.constant.RestConstants.RATINGS;
 import static org.singhav.sample.util.FundRatingUtils.createParamMap;
 
 @Slf4j
@@ -39,7 +39,7 @@ public class RatingClientService {
     }
 
     private RatingResponse getRatingResponse(Map<String, String> paramMap) {
-        ResponseEntity<RatingResponse> ratingResponseEntity = restDetailsProviderService.getRestClient(DEFAULT)
+        ResponseEntity<RatingResponse> ratingResponseEntity = restDetailsProviderService.getRestClient(RATINGS)
                 .get()
                 .uri(uriBuilder -> {
                     var apiDetail = restDetailsProviderService.getApiDetail("crisil-ranking");
