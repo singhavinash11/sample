@@ -31,6 +31,9 @@ custom:
       posts:
         connect-timeout: 3000
         read-timeout: 8000
+      ratings:
+        connect-timeout: 3000
+        read-timeout: 15000
 
 backends:
   crisil-ranking:

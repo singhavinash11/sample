@@ -19,4 +19,5 @@ public final class RestConstants {
     public static final String DEFAULT = "default";
     public static final String TODOS = "todos";
     public static final String POSTS = "posts";
+    public static final String RATINGS = "ratings";
 }
